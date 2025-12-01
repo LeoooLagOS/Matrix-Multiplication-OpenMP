@@ -3,7 +3,9 @@
 #include <omp.h>
 #include <time.h>
 
+// Accede a A[i][j] como A[i * cols + j]
 void multiply_matrices(int m1, int n1, int n2, int *A, int *B, int *C) {
+    // La directiva collapse(2) optimiza los dos bucles anidados
     #pragma omp parallel for collapse(2)
     for (int i = 0; i < m1; i++) {
         for (int j = 0; j < n2; j++) {
@@ -75,6 +77,7 @@ int main() {
 
     // 6. Ejecución y Medición
     printf("\nCalculando...\n");
+    //Medicion de Tiempo de Alto Rendimiento
     double start = omp_get_wtime();
     multiply_matrices(m1, n1, n2, A, B, C);
     double end = omp_get_wtime();
@@ -93,7 +96,7 @@ int main() {
             }
         }
     }
-    
+    //Lieracion de memoria y fin
     printf("\n>>> Tiempo de ejecucion: %f segundos <<<\n", end - start);
     printf("Resultados guardados en 'resultado.txt'\n");
 
